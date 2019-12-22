@@ -38,7 +38,25 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name'      => 'required|min:3|max:255',
+            'email'     => 'nullable|unique:users|email',
+            'phone'     => 'required|unique:users|min:10|max:15',
+            'password'  => 'nullable|min:3|max:120',
+            'address'   => 'nullable',
+            'birthdate' => 'nullable',
+            'user_type' => 'required|min:0|max:1|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return ['errors' => $validator->errors()];
+        }
+
+        $user =request()->all()
+        $user['password'] = sha1(request()->password);
+        $user = user::create($user);
+
+        return $user;
     }
 
     /**
@@ -106,13 +124,18 @@ class userController extends Controller
             'user_password' => 'required',
         ]);
 
-        $user = user::where('user_type', 1)->where('phone', request()->user_phone)->where('password', sha1(request()->user_password)))->first();
+        $user = user::where('user_type', 1)->where('phone', request()->user_phone)->where('password', sha1(request()->user_password))->first();
+
         
         if(isset($user->id)){
-            session()->put('user', [ 'id' => $user->id, 'name' => $user->name])
-        }
+            
+            session()->put('user', [ 'id' => $user->id, 'name' => $user->name]);
 
-        return view('welcome');
+            return view('welcome');
+        }
+// $request->session()->flash('status', 'Task was successful!');
+        // session()->flash('error', 'phone or Password incorrect');
+        return back();
     }
 
 

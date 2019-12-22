@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 
 // Route::middleware('auth:api')->get('/user', 'UserController@index');
 
-Route::post('/user', 'UserController@store');
+// Route::post('/user', 'UserController@store');
 
 Route::get('/user', 'UserController@show');
 
