@@ -108,7 +108,7 @@ class userController extends Controller
             session()->put('name', $user->name);
             session()->put('phone', $user->phone);
 
-            return view('welcome');
+            return redirect('/');
         }
 // $request->session()->flash('status', 'Task was successful!');
         // session()->flash('error', 'phone or Password incorrect');
