@@ -26,7 +26,7 @@
                 <div class="container">
                     
                     <div class="pull-right">
-                        <a class="brand b" style="font-size: 22px;" href="index.html">إبتدائية 107</a>
+                        <a class="brand b" style="font-size: 22px;" href="/../">إبتدائية 107</a>
                     </div>
 
 
@@ -108,7 +108,7 @@
 
 
                                 <li>
-                                    <a href="">
+                                    <a href="/user">
                                         <i class="menu-icon icon-bold"></i>
                                         المشرفين
                                     </a>

@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->user = user::find(request()->header('user_id'));
+        $this->user = user::where('remember_token',request()->header('user_id'))->first();
 
         if(!isset($this->user->id)){
             return abort_if(['message' => 'User UnAuthorized APP'],401);
@@ -53,7 +53,7 @@ class UserController extends Controller
             'name'      => 'required|min:3|max:255',
             'email'     => 'nullable|unique:users|email',
             'phone'     => 'required|unique:users|min:10|max:15',
-            'password'  => 'required|min:3|max:120',
+            'password'  => 'nullable|min:3|max:120',
             'address'   => 'nullable',
             'birthdate' => 'nullable',
             'user_type' => 'required|min:0|max:1|numeric',

@@ -16,8 +16,14 @@ class userController extends Controller
      */
     public function index()
     {
-        return user::all();
-        return view('welcome');
+
+        
+        if(userController::checklogin() != 1){
+            return redirect('/login');
+        }
+
+        $user = user::where('user_type', 1)->get();
+        return view('user')->with('users', $user);
     }
 
     /**
@@ -38,72 +44,41 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        
+        if(userController::checklogin() != 1){
+            return redirect('/login');
+        }
+
+
         $validator = Validator::make($request->all(), [
             'name'      => 'required|min:3|max:255',
             'email'     => 'nullable|unique:users|email',
             'phone'     => 'required|unique:users|min:10|max:15',
-            'password'  => 'nullable|min:3|max:120',
+            'password'  => 'required|confirmed|min:3|max:120',
             'address'   => 'nullable',
-            'birthdate' => 'nullable',
-            'user_type' => 'required|min:0|max:1|numeric',
+            // 'user_type' => 'required|min:0|max:1|numeric',
         ]);
 
         if ($validator->fails()) {
             return ['errors' => $validator->errors()];
         }
 
-        $user =request()->all()
-        $user['password'] = sha1(request()->password);
-        $user = user::create($user);
 
-        return $user;
+        $user = user::create([
+            'name'      => request()->name,
+            'phone'     => request()->phone,
+            'address'   => request()->address,
+            'password' => sha1(request()->password),
+            'user_type' => 1,
+        ]);
+
+
+        // $user = user::create($user);
+
+        return $this->index();
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
 
 
 
@@ -129,7 +104,9 @@ class userController extends Controller
         
         if(isset($user->id)){
             
-            session()->put('user', [ 'id' => $user->id, 'name' => $user->name]);
+            session()->put('id', $user->id);
+            session()->put('name', $user->name);
+            session()->put('phone', $user->phone);
 
             return view('welcome');
         }
@@ -142,6 +119,22 @@ class userController extends Controller
 
     public function logout()
     {
+
+        session()->forget('id');
+        session()->forget('name');
+        session()->forget('phone');
+
+
         return view('login');
+    }
+
+
+
+    public static function checklogin(){
+
+        if(empty(session('name')) || empty(session('phone')) || empty(session('id'))){
+            return 0;
+        }
+        return 1;
     }
 }

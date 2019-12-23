@@ -41,13 +41,13 @@
 
 									<br />
 
-									<form action="students" method="post" class="form-horizontal row-fluid" dir="rtl">
+									<form action="user" method="post" class="form-horizontal row-fluid" dir="rtl">
 										{{ csrf_field()}}
 
 										<div class="control-group" dir="rtl">
 
-											<label class="" for="user_name">الاسم</label>
-											<input type="text" id="user_name" name="user_name" placeholder="الاسم ..." class="span12 form-conttrol">
+											<label class="" for="name">الاسم</label>
+											<input type="text" id="name" name="name" placeholder="الاسم ..." class="span12 form-conttrol">
 
 										</div>
 
@@ -58,15 +58,33 @@
 										<div class="control-group row">
 											<div class=" col-md-6" dir="rtl">
 
-												<label class="" for="user_address">العنوان</label>
-												<input type="text" id="user_address" name="user_address" placeholder="العنوان ..." class="span12 form-conttrol">
+												<label class="" for="address">العنوان</label>
+												<input type="text" id="address" name="address" placeholder="العنوان ..." class="span12 form-conttrol">
 
 											</div>
 
 											<div class=" col-md-6" dir="rtl">
 
-												<label class="" for="user_phone">رقم الجوال</label>
-												<input type="text" id="user_phone" name="user_phone" placeholder="رقم الجوال  ..." class="span12 form-conttrol">
+												<label class="" for="phone">رقم الجوال</label>
+												<input type="text" id="phone" name="phone" placeholder="رقم الجوال  ..." class="span12 form-conttrol">
+
+											</div>
+										</div>
+
+
+
+										<div class="control-group row">
+											<div class=" col-md-6" dir="rtl">
+
+												<label class="" for="password_confirmation">تأكيد كلمة المرور</label>
+												<input type="password" id="password_confirmation" name="password_confirmation" placeholder="تأكيد كلمة المرور ..." class="span12 form-conttrol">
+
+											</div>
+
+											<div class=" col-md-6" dir="rtl">
+
+												<label class="" for="password">كلمة المرور</label>
+												<input type="password" id="password" name="password" placeholder="كلمة المرور   ..." class="span12 form-conttrol">
 
 											</div>
 										</div>
@@ -107,19 +125,19 @@
 											<th>الترقيم</th>
 											<th>الاسم</th>
 											<th>رقم الجوال</th>
-											<th>عدد الإختبارات</th>
+											<th>العنوان</th>
 										</tr>
 									</thead>
 									<tbody>
 
-										@if(!empty($students))
-											@foreach($students as $student)
+										@if(!empty($users))
+											@foreach($users as $user)
 
 											<tr class="odd gradeX">
-												<td>{{ $student->id ?? '--' }}</td>
-												<td>{{ $student->name ?? '--' }}</td>
-												<td>{{ $student->phone ?? '--' }}</td>
-												<td>{{ $student->quiz ?? 0 }}</td>
+												<td>{{ $user->id ?? '--' }}</td>
+												<td>{{ $user->name ?? '--' }}</td>
+												<td>{{ $user->phone ?? '--' }}</td>
+												<td>{{ $user->address ?? 0 }}</td>
 											</tr>
 											@endforeach
 										@endif

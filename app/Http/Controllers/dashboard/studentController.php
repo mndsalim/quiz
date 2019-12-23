@@ -16,7 +16,15 @@ class studentController extends Controller
      */
     public function index()
     {
-        $students = user::where('user_type', 0)->get();
+
+        
+        if(userController::checklogin() != 1){
+            return redirect('/login');
+        }
+
+
+
+        $students = user::where('user_type', 0)->orderBy('id', 'desc')->get();
         
         foreach($students as $key => $student){ $students[$key]->quiz = $student->quiz->count();}
 
@@ -42,55 +50,40 @@ class studentController extends Controller
     public function store(Request $request)
     {
 
-        $Validate = $this->Validate(request(), [
-            'user_name' => 'required|min:3',
+        
+        if(userController::checklogin() != 1){
+            return redirect('/login');
+        }
+
+
+
+        $validator = Validator::make($request->all(), [
+            'user_name'      => 'required|min:3|max:255',
+            // 'email'     => 'nullable|unique:users|email',
+            'user_phone'     => 'required|min:10|max:15',
+            // 'password'  => 'nullable|min:3|max:120',
+            'user_address'   => 'nullable',
+            // 'birthdate' => 'nullable',
+            // 'user_type' => 'required|min:0|max:1|numeric',
         ]);
 
-        return request()->all();
-    }
+        if ($validator->fails()) {
+            return ['errors' => $validator->errors()];
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $student = user::create([
+            'name'      => request()->user_name,
+            'phone'     => request()->user_phone,
+            'address'   => request()->user_address,
+            'user_type' => 0,
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $student->remember_token = sha1($student->id);
+        $student->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+
+        // return $this->index();
+        return view('qrCode')->with('student', $student);
     }
 }

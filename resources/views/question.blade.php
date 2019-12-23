@@ -37,17 +37,29 @@
 
 								
 
-								<div id="togglePages" class="collapse unstyled">
+								<div id="togglePages" class="collapse unstyled" style="direction: rtl !important;">
 
 									<br />
 
-									<form action="students" method="post" class="form-horizontal row-fluid" dir="rtl">
+									<form action="questions" dir="rtl" method="post" class="form-horizontal row-fluid" dir="rtl">
 										{{ csrf_field()}}
 
-										<div class="control-group" dir="rtl">
+										<div class="control-group row">
 
-											<label class="" for="user_name">الاسم</label>
-											<input type="text" id="user_name" name="user_name" placeholder="الاسم ..." class="span12 form-conttrol">
+											<div class=" col-md-8" dir="rtl">
+												<label class="" for="question">السؤال</label>
+												<input type="text" id="question" name="question" placeholder="السؤال ..." class="span12 form-conttrol">
+
+											</div>
+
+
+											<div class=" col-md-4" dir="rtl">
+												<label class="" for="question_type">نوع السؤال</label>
+												<select id="question_type" name="question_type" class="form-conttrol">
+													<option value="1">ضرب</option>
+													<option value="2">قسمة</option>
+												</select>
+											</div>
 
 										</div>
 
@@ -58,15 +70,32 @@
 										<div class="control-group row">
 											<div class=" col-md-6" dir="rtl">
 
-												<label class="" for="user_address">العنوان</label>
-												<input type="text" id="user_address" name="user_address" placeholder="العنوان ..." class="span12 form-conttrol">
+												<label class="" for="second_answer">الخيار الثاني</label>
+												<input type="text" id="second_answer" name="second_answer" placeholder="كلمة المرور ..." class="span12 form-conttrol">
 
 											</div>
 
 											<div class=" col-md-6" dir="rtl">
 
-												<label class="" for="user_password">كلمة المرور</label>
-												<input type="password" id="user_password" name="user_password" placeholder="كلمة المرور ..." class="span12 form-conttrol">
+												<label class="" for="first_answer">الخيار الأول</label>
+												<input type="text" id="first_answer" name="first_answer" placeholder="العنوان ..." class="span12 form-conttrol">
+
+											</div>
+										</div>
+
+
+										<div class="control-group row">
+											<div class=" col-md-6" dir="rtl">
+
+												<label class="" for="fourth_answer">الخيار الرابع</label>
+												<input type="text" id="fourth_answer" name="fourth_answer" placeholder="كلمة المرور ..." class="span12 form-conttrol">
+
+											</div>
+
+											<div class=" col-md-6" dir="rtl">
+
+												<label class="" for="third_answer">الخيار الثالث</label>
+												<input type="text" id="third_answer" name="third_answer" placeholder="العنوان ..." class="span12 form-conttrol">
 
 											</div>
 										</div>
@@ -79,6 +108,14 @@
 
 
 										<div class="control-group">
+
+												<select name="correct_answer" class="span6 form-conttrol">
+													<option>رقم الإجابة الصحيحة</option>
+													<option value="1">الأولى</option>
+													<option value="2">الثانية</option>
+													<option value="3">الثالثة</option>
+													<option value="4">الرابعة</option>
+												</select>
 
 												<button type="submit" class="btn btn-primary pull-left">تسجــيــل</button>
 

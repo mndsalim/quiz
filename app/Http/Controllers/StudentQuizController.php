@@ -19,7 +19,7 @@ class StudentQuizController extends Controller
 
     public function __construct()
     {
-        $this->user = user::find(request()->header('user_id'));
+        $this->user = user::where('remember_token',request()->header('user_id'))->first();
 
         if(!isset($this->user->id)){
             return abort_if(['message' => 'User UnAuthorized APP'],401);

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\dashboard;
 
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\question_answer;
 use App\question;
 
 class questionController extends Controller
@@ -15,6 +17,13 @@ class questionController extends Controller
      */
     public function index()
     {
+
+        
+        if(userController::checklogin() != 1){
+            return redirect('/login');
+        }
+
+
          // $questions = question::leftJoin('question_answers', 'questions.id', 'question_answers.question_id')->select('questions.*', 'questions.id as qid' , 'question_answers.*',  'question_answers.id as aid')->get();
         
         $questions = question::all();
@@ -50,51 +59,45 @@ class questionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        
+        if(userController::checklogin() != 1){
+            return redirect('/login');
+        }
+        
+        $validator = Validator::make($request->all(), [
+            'question'          => 'required|min:3|max:255',
+            'first_answer'      => 'required|min:1|max:15',
+            'second_answer'     => 'required|min:1|max:15',
+            'third_answer'      => 'required|min:1|max:15',
+            'fourth_answer'     => 'required|min:1|max:15',
+            'question_type'    => 'required|min:1|max:2|numeric',
+            'correct_answer'    => 'required|min:1|max:4|numeric',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        if ($validator->fails()) {
+            return ['errors' => $validator->errors()];
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+
+
+        $question = question::create([
+            'group_id'  => request()->question_type,
+            'question'  => request()->question,
+            'is_active' => 1,
+        ]);
+
+        $question_answer = question_answer::create([
+            'question_id'       => $question->id,
+            'first_answer'      => request()->first_answer,
+            'second_answer'     => request()->second_answer,
+            'third_answer'      => request()->third_answer,
+            'fourth_answer'     => request()->fourth_answer,
+            'correct_answer'    => request()->correct_answer,
+        ]);
+
+        return $this->index();
+
     }
 }
