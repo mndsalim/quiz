@@ -19,7 +19,7 @@ class questionResource extends JsonResource
     public function toArray($request)
     {
 
-        $user = user::find(request()->header('user_id'));
+        $user = user::where('remember_token', request()->header('user_id'))->first();
 
         $counter = $user->quiz()->where('group_type', request()->group_type)->where('finishing_date', null)->get()?? [];
 

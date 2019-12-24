@@ -71,14 +71,14 @@
 											<div class=" col-md-6" dir="rtl">
 
 												<label class="" for="second_answer">الخيار الثاني</label>
-												<input type="text" id="second_answer" name="second_answer" placeholder="كلمة المرور ..." class="span12 form-conttrol">
+												<input type="text" id="second_answer" name="second_answer" placeholder="" class="span12 form-conttrol">
 
 											</div>
 
 											<div class=" col-md-6" dir="rtl">
 
 												<label class="" for="first_answer">الخيار الأول</label>
-												<input type="text" id="first_answer" name="first_answer" placeholder="العنوان ..." class="span12 form-conttrol">
+												<input type="text" id="first_answer" name="first_answer" placeholder="" class="span12 form-conttrol">
 
 											</div>
 										</div>
@@ -88,14 +88,14 @@
 											<div class=" col-md-6" dir="rtl">
 
 												<label class="" for="fourth_answer">الخيار الرابع</label>
-												<input type="text" id="fourth_answer" name="fourth_answer" placeholder="كلمة المرور ..." class="span12 form-conttrol">
+												<input type="text" id="fourth_answer" name="fourth_answer" placeholder="" class="span12 form-conttrol">
 
 											</div>
 
 											<div class=" col-md-6" dir="rtl">
 
 												<label class="" for="third_answer">الخيار الثالث</label>
-												<input type="text" id="third_answer" name="third_answer" placeholder="العنوان ..." class="span12 form-conttrol">
+												<input type="text" id="third_answer" name="third_answer" placeholder="" class="span12 form-conttrol">
 
 											</div>
 										</div>
