@@ -72,7 +72,8 @@ class questionController extends Controller
             'second_answer'     => 'required|min:1|max:15',
             'third_answer'      => 'required|min:1|max:15',
             'fourth_answer'     => 'required|min:1|max:15',
-            'question_type'    => 'required|min:1|max:2|numeric',
+            'question_level'    => 'required|min:1|max:5|numeric',
+            'question_type'     => 'required|min:1|max:2|numeric',
             'correct_answer'    => 'required|min:1|max:4|numeric',
         ]);
 
@@ -85,6 +86,7 @@ class questionController extends Controller
         $question = question::create([
             'group_id'  => request()->question_type,
             'question'  => request()->question,
+            'level'     => request()->question_level,
             'is_active' => 1,
         ]);
 

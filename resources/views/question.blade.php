@@ -44,12 +44,11 @@
 									<form action="questions" dir="rtl" method="post" class="form-horizontal row-fluid" dir="rtl">
 										{{ csrf_field()}}
 
-										<div class="control-group row">
+										<div class="form-group row">
 
-											<div class=" col-md-8" dir="rtl">
+											<div class=" col-md-4" dir="rtl">
 												<label class="" for="question">السؤال</label>
 												<input type="text" id="question" name="question" placeholder="السؤال ..." class="span12 form-conttrol">
-
 											</div>
 
 
@@ -58,6 +57,15 @@
 												<select id="question_type" name="question_type" class="form-conttrol">
 													<option value="1">ضرب</option>
 													<option value="2">قسمة</option>
+												</select>
+											</div>
+
+											<div class=" col-md-4" dir="rtl">
+												<label class="" for="question_level">درجة الصعوبة</label>
+												<select id="question_level" name="question_level" class="form-conttrol">
+													@for($i = 1; $i <= 20; $i++)
+													<option value="{{ $i }}">{{ $i }}</option>
+													@endfor
 												</select>
 											</div>
 

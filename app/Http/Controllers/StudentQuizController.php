@@ -50,7 +50,7 @@ class StudentQuizController extends Controller
         $quiz = $this->user->quiz->where('group_type', request()->group_type)->where('finishing_date',null)->first();
 
         if(!isset($quiz->id)){
-            $quiz = studentQuiz::create(['user_id' => $this->user->id, 'group_type' => request()->group_type, 'starting_date' => date('Y-m-d H:i:s')]);
+            $quiz = studentQuiz::create(['user_id' => $this->user->id, 'group_type' => request()->group_type, 'starting_date' => date('Y-m-d H:i:s'), 'level' => $this->newLevel()]);
         }
 
         
@@ -198,7 +198,7 @@ class StudentQuizController extends Controller
 
 
 
-        $question = question::where('questions.is_active', 1)->whereNotIn('questions.id', $aid)->where('questions.group_id', request()->group_type)->leftJoin('question_answers', 'questions.id', 'question_answers.question_id')->inRandomOrder()->take(1)->select('*', 'question_answers.id as aid', 'questions.id as id')->first();
+        $question = question::where('questions.is_active', 1)->where('level', $quiz->level)->whereNotIn('questions.id', $aid)->where('questions.group_id', request()->group_type)->leftJoin('question_answers', 'questions.id', 'question_answers.question_id')->inRandomOrder()->take(1)->select('*', 'question_answers.id as aid', 'questions.id as id')->first();
 
         if(!isset($question->aid)){return ['error' => 'No More questions'];}
         $question =  new questionResource($question);
@@ -276,6 +276,34 @@ class StudentQuizController extends Controller
     public function update(Request $request, studentQuiz $studentQuiz)
     {
         //
+    }
+
+
+
+
+
+
+    public function newLevel()
+    {
+
+        $n = studentQuiz::where('user_id', $this->user->id)->orderBy('level', 'desc')->first();
+
+        if(isset($n->level)){
+            $level = studentQuiz::where('user_id', $this->user->id)->where('level', $n->level)->get()->count();
+
+            if($level >= $n->level){
+
+                return $n->level + 1;
+
+            }
+
+            return $n->level;
+        }else{
+            return 1;
+        }
+
+
+    
     }
 
     

@@ -17,6 +17,7 @@ class CreateStudentQuizzesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBiginteger('user_id');
             $table->integer('group_type');
+            $table->integer('level')->default(1);
             $table->dateTime('starting_date');
             $table->dateTime('finishing_date')->nullable();
             $table->integer('student_score')->default(0);

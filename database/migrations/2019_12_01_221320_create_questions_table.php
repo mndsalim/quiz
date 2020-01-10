@@ -17,6 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('group_id');
             $table->string('question');
+            $table->integer('level');
             $table->integer('is_active');
             $table->timestamps();
 
