@@ -23,7 +23,6 @@ Route::post('/login', 'dashboard\userController@login');
 Route::get('/logout', 'dashboard\userController@logout');
 
 
-
 Route::resource('/user', 'dashboard\userController');
 
 
@@ -32,3 +31,5 @@ Route::resource('/students', 'dashboard\studentController');
 Route::resource('/quizzes', 'dashboard\quizController');
 
 Route::resource('/questions', 'dashboard\questionController');
+
+// Route::get('/questions/{question}/cancel', 'dashboard\questionController@destroy');

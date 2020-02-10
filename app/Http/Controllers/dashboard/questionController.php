@@ -102,4 +102,12 @@ class questionController extends Controller
         return $this->index();
 
     }
+
+
+    public function destroy(question $question)
+    {
+        $question->delete();
+
+        return back();
+    }
 }

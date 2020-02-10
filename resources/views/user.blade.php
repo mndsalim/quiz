@@ -126,6 +126,7 @@
 											<th>الاسم</th>
 											<th>رقم الجوال</th>
 											<th>العنوان</th>
+											<th>تعطيل/تفعيل</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -138,6 +139,7 @@
 												<td>{{ $user->name ?? '--' }}</td>
 												<td>{{ $user->phone ?? '--' }}</td>
 												<td>{{ $user->address ?? 0 }}</td>
+												<td><a href="{{ $user->id}}"></a></td>
 											</tr>
 											@endforeach
 										@endif

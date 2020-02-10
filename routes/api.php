@@ -29,6 +29,5 @@ Route::get('/quiz', 'StudentQuizController@index')->name('quiz');
 Route::post('/quiz', 'StudentQuizController@store')->name('answer');
 
 Route::get('/quiz/result/{studentQuiz}', 'StudentQuizController@quizResult')->name('result1');
+
 Route::get('/quiz/result', 'StudentQuizController@quizResult')->name('result');
-
-

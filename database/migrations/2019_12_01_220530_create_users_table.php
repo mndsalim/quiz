@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->date('birthdate')->nullable();
             $table->string('password')->nullable();
             $table->integer('user_type')->default(0);
+            $table->tinyInteger('isBlocked')->default(0);
             $table->string('remember_token')->nullable();
             $table->timestamps();
         });

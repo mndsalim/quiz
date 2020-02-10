@@ -27,9 +27,9 @@ class CreateQuizAnswersTable extends Migration
 
             $table->foreign('quiz_id')->references('id')->on('student_quizzes')->onDelete('cascade');
 
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            // $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
 
-            $table->foreign('answer_id')->references('id')->on('question_answers');
+            // $table->foreign('answer_id')->references('id')->on('question_answers');
 
         });
     }

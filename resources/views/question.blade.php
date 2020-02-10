@@ -157,6 +157,7 @@
 											<th>الجواب الرابع</th>
 											<th> رقم الجواب الصحيح</th>
 											<th>تفعيل\تعطيل</th>
+											<th>جذف</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -173,6 +174,7 @@
 												<td>{{ $question->fourth_answer ?? '--' }}</td>
 												<td>{{ $question->correct_answer ?? '--' }}</td>
 												<td>{{ $question->is_active ?? 0 }}</td>
+												<td> <a onclick="return confirm('هل تريد حذف هذا السؤال')" class="btn btn-danger" href="/questions/{{ $question->id}}/cancel">حذف</a></td>
 											</tr>
 											@endforeach
 										@endif
