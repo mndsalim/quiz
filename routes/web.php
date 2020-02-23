@@ -32,4 +32,6 @@ Route::resource('/quizzes', 'dashboard\quizController');
 
 Route::resource('/questions', 'dashboard\questionController');
 
-// Route::get('/questions/{question}/cancel', 'dashboard\questionController@destroy');
+Route::get('/questions/{question}/cancel', 'dashboard\questionController@destroy');
+
+Route::get('/students/{student}/reset', 'dashboard\studentController@reset');

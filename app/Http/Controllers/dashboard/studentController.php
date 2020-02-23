@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\user;
+use App\studentQuiz;
+use App\quiz_answer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -36,9 +38,17 @@ class studentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function reset(user $student)
     {
-        //
+        $quizzes = studentQuiz::where('user_id', $student->id)->get();
+
+        foreach ($quizzes as $quiz) {
+            
+            quiz_answer::where('quiz_id', $quiz->id)->delete();
+        }
+        studentQuiz::where('user_id', $student->id)->delete();
+        
+        return redirect()->back();
     }
 
     /**

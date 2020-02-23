@@ -108,6 +108,7 @@
 											<th>الاسم</th>
 											<th>رقم الجوال</th>
 											<th>عدد الإختبارات</th>
+											<th>تصفير الإمتحانات</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -120,6 +121,7 @@
 												<td>{{ $student->name ?? '--' }}</td>
 												<td>{{ $student->phone ?? '--' }}</td>
 												<td>{{ $student->quiz ?? 0 }}</td>
+												<td> <a class="btn btn-danger" href="/students/{{ $student->id}}/reset">تصفير</a></td>
 											</tr>
 											@endforeach
 										@endif
